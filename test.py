@@ -12,3 +12,6 @@
 # from selenium.webdriver.support.select import Select
 # s = Select(driver.find_element_by_class_name("selectpicker"))
 # s.select_by_value(str(num))
+
+
+submit_btn = "id=>su"
