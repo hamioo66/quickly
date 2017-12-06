@@ -56,48 +56,53 @@ driver.switch_to.frame(mainIframe1[-1])
 driver.find_element_by_css_selector('input[placeholder="请输入企业名称"]').send_keys('123456')
 driver.find_element_by_css_selector('input[placeholder="有效的手机号码"]').send_keys('15599155289')
 
-driver.find_element_by_id('file').send_keys('C:\\Users\\lenovo\\Pictures\\aa.jpg')
+driver.find_element_by_id('file').send_keys('C:\\Users\\asus1\\Pictures\\aa.jpg')
 time.sleep(5)
 # driver.find_element_by_xpath('//*[@id="agent_area_div"]/div[1]').click() #点击选择代理区域
-driver.find_element_by_id('file2').send_keys('C:\\Users\\lenovo\\Pictures\\aa.jpg')
+driver.find_element_by_id('file2').send_keys('C:\\Users\\asus1\\Pictures\\aa.jpg')
 # driver.find_element_by_css_selector('input#file2.fileImg').click()
 # #调用upfile.exe上传程序
 # os.system("F:\\upfile.exe")
-driver.find_element_by_id('file2').send_keys('C:\\Users\\lenovo\\Pictures\\bb.jpg')
+driver.find_element_by_id('file2').send_keys('C:\\Users\\asus1\\Pictures\\bb.jpg')
 
 
 
 
-def selectNum(self,num):
-    self.num=num
+def selectNum(num):
     selects = driver.find_elements_by_css_selector('button[title="请选择"]')
     print len(selects)
     selects[num - 1].click()
-
-
     if num==1:
         selectArea()
-
     elif num==3:
         selectContactAddress()
 
-area=[]
-def selectArea(self,area):     #代理区域
+
+def selectArea(area=[]):     #代理区域
     formSearchs = driver.find_elements_by_class_name('form-control')
+    selects = driver.find_elements_by_css_selector('button[title="请选择"]')
+    print len(selects)
     for i in area:
-        pass
+        #print i
+        for j in range(0,len(area)):
+            if j<len(area):
+                #print j
+                selects[j].click()
+                formSearchs[j].send_keys(i)
+                formSearchs[j].send_keys(Keys.ENTER)
+
 
 
 def selectContactAddress(self,province,city,area,country):   #联系地址
-    self.province = province
-    self.city = city
-    self.area=area
-    self.country=country
-    formSearchs = driver.find_elements_by_class_name('form-control')
-    formSearchs[self.num - 1].send_keys(self.province)
-    formSearchs[self.num - 1].send_keys(Keys.ENTER)
-    formSearchs[self.num].send_keys(self.city)
-    formSearchs[self.num - 1].send_keys(Keys.ENTER)
+    # self.province = province
+    # self.city = city
+    # self.area=area
+    # self.country=country
+    # formSearchs = driver.find_elements_by_class_name('form-control')
+    # formSearchs[self.num - 1].send_keys(self.province)
+    # formSearchs[self.num - 1].send_keys(Keys.ENTER)
+    # formSearchs[self.num].send_keys(self.city)
+    # formSearchs[self.num - 1].send_keys(Keys.ENTER)
     pass
-
-selectNum(1)
+area=[u'北京市',u'市辖区']
+selectArea(area)
