@@ -14,4 +14,7 @@
 # s.select_by_value(str(num))
 
 
-submit_btn = "id=>su"
+# submit_btn = "id=>su"
+i = []
+i.insert(1, 2)
+print i

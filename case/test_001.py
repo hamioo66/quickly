@@ -2,9 +2,11 @@
 import unittest
 import time
 class Test(unittest.TestCase):
-    def setUp(self):
+    @classmethod
+    def setUpClass(cls):
         print "start"
-    def tearDown(self):
+    @classmethod
+    def tearDownClass(cls):
         time.sleep(1)
         print "end"
     def test01(self):
