@@ -1,7 +1,7 @@
 # coding=utf-8
 import os.path
 import time
-
+from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import NoSuchElementException
 from utils.logger import Logger
 
@@ -85,7 +85,7 @@ class BasePage(object):
         if selector_by == "i" or selector_by == 'id':
             try:
                 element = self.driver.find_element_by_id(selector_value)
-                logger.info("Had find the element \' %s \' successful "
+                logger.info("Had find the element %s successful "
                             "by %s via value: %s " % (element.text, selector_by, selector_value))
             except NoSuchElementException as e:
                 logger.error("NoSuchElementException: %s" % e)
@@ -161,3 +161,50 @@ class BasePage(object):
     def sleep(seconds):
         time.sleep(seconds)
         logger.info("Sleep for %d seconds" % seconds)
+
+
+
+#集鲜丰basemethod
+    def value_to_input(self, inputValues=[]):
+        allInputs = self.driver.find_elements_by_css_selector('li>input')
+        try:
+            i = 0
+            while i < len(inputValues):
+                    allInputs[i].send_keys(inputValues[i])
+                    i = i+1
+        except:
+            logger.info("参数值为空")
+
+    def select_area(self, area=[]):     #级联选择
+        formSearchs = self.driver.find_elements_by_class_name('form-control')
+        selects = self.driver.find_elements_by_css_selector('button[title="请选择"]')
+        i = 0
+        while i < len(area):
+            for j in range(0,len(area)):
+                try:
+                    selects[j].click()
+                    formSearchs[j].send_keys(area[i])
+                    formSearchs[j].send_keys(Keys.ENTER)
+                    i=i+1
+                except:
+                    ValueError
+
+    def fileImg(self, file):
+        imgFiles = self.driver.find_elements_by_css_selector('section>input')
+        print len(imgFiles)
+        try:
+            i = 0
+            while i < len(imgFiles):
+                imgFiles[i].send_keys(file)
+                i = i+1
+        except:
+            logger.info("参数值为空")
+
+    def moreImgFiles(self, file):  #上传更多图片，只针对第二张
+        try:
+            secondImgFile = self.driver.find_element_by_id("file2")
+            more = self.driver.find_element_by_id("file3")
+            secondImgFile.send_keys(file)
+            more.send_keys(file)
+        except:
+            logger.info("当前元素不存在")

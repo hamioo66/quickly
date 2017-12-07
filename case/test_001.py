@@ -1,7 +1,7 @@
 # coding:utf-8
 import unittest
 import time
-class Test(unittest.TestCase):
+class Test_001(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         print "start"
