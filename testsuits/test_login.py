@@ -7,6 +7,7 @@ date:2017/12/8
 import unittest
 from selenium import webdriver
 from case.login import Login
+from case.find_menu import Find_menu
 from utils.TestRunner import TestRunner
 class login(unittest.TestCase):
     @classmethod
@@ -26,6 +27,9 @@ class login(unittest.TestCase):
     def test_login(self):
         Login(self.browse).login("1", "18888888888", "123456")
         Login(self.browse).get_windows_img()
+
+    def find_menu(self):
+        Find_menu.find_menu()
 
 
 if __name__ == "__main__":
