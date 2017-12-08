@@ -17,31 +17,26 @@ class BasePage(object):
     def __init__(self, driver):
         self.driver = driver
 
-        # quit browser and end testing
-
+    # 退出浏览器并结束测试
     def quit_browser(self):
         self.driver.quit()
 
-        # 浏览器前进操作
-
+    # 浏览器前进操作
     def forward(self):
         self.driver.forward()
         logger.info("Click forward on current page.")
 
-        # 浏览器后退操作
-
+    # 浏览器后退操作
     def back(self):
         self.driver.back()
         logger.info("Click back on current page.")
 
-        # 隐式等待
-
+    # 隐式等待
     def wait(self, seconds):
         self.driver.implicitly_wait(seconds)
         logger.info("wait for %d seconds." % seconds)
 
-        # 点击关闭当前窗口
-
+    # 点击关闭当前窗口
     def close(self):
         try:
             self.driver.close()
@@ -49,8 +44,7 @@ class BasePage(object):
         except NameError as e:
             logger.error("Failed to quit the browser with %s" % e)
 
-            # 保存图片
-
+    # 保存图片
     def get_windows_img(self):
         """
         在这里我们把file_path这个参数写死，直接保存到我们项目根目录的一个文件夹.\Screenshots下
@@ -65,8 +59,7 @@ class BasePage(object):
             logger.error("Failed to take screenshot! %s" % e)
             self.get_windows_img()
 
-            # 定位元素方法
-
+    # 定位元素方法
     def find_element(self, selector):
         """
          这个地方为什么是根据=>来切割字符串，请看页面里定位元素的方法
@@ -115,8 +108,7 @@ class BasePage(object):
 
         return element
 
-        # 输入
-
+    # 输入
     def type(self, selector, text):
 
         el = self.find_element(selector)
@@ -128,8 +120,7 @@ class BasePage(object):
             logger.error("Failed to type in input box with %s" % e)
             self.get_windows_img()
 
-            # 清除文本框
-
+    # 清除文本框
     def clear(self, selector):
 
         el = self.find_element(selector)
@@ -140,8 +131,7 @@ class BasePage(object):
             logger.error("Failed to clear in input box with %s" % e)
             self.get_windows_img()
 
-            # 点击元素
-
+    # 点击元素
     def click(self, selector):
 
         el = self.find_element(selector)
@@ -151,8 +141,7 @@ class BasePage(object):
         except NameError as e:
             logger.error("Failed to click the element with %s" % e)
 
-            # 或者网页标题
-
+    # 或者网页标题
     def get_page_title(self):
         logger.info("Current page title is %s" % self.driver.title)
         return self.driver.title
@@ -164,7 +153,9 @@ class BasePage(object):
 
 
 
-#集鲜丰basemethod
+ #集鲜丰公共的一些方法
+
+    # 获取表单中所有input并传值
     def value_to_input(self, inputValues=[]):
         allInputs = self.driver.find_elements_by_css_selector('li>input')
         try:
@@ -175,6 +166,7 @@ class BasePage(object):
         except:
             logger.info("参数值为空")
 
+    # 获取表单级联下拉列表并选值，这里针对select2
     def select_area(self, area=[]):     #级联选择
         formSearchs = self.driver.find_elements_by_class_name('form-control')
         selects = self.driver.find_elements_by_css_selector('button[title="请选择"]')
@@ -188,7 +180,7 @@ class BasePage(object):
                     i=i+1
                 except:
                     ValueError
-
+    # 上传图片
     def fileImg(self, file):
         imgFiles = self.driver.find_elements_by_css_selector('section>input')
         print len(imgFiles)
@@ -199,7 +191,7 @@ class BasePage(object):
                 i = i+1
         except:
             logger.info("参数值为空")
-
+    # 上传多张图片
     def moreImgFiles(self, file):  #上传更多图片，只针对第二张
         try:
             secondImgFile = self.driver.find_element_by_id("file2")

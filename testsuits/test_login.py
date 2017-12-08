@@ -2,6 +2,7 @@
 import unittest
 from selenium import webdriver
 from case.login import Login
+from utils.TestRunner import TestRunner
 class login(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
@@ -10,6 +11,7 @@ class login(unittest.TestCase):
         """
         cls.browse =webdriver.Firefox()
         cls.browse.get('http://123.206.57.62:17000')
+        cls.browse.maximize_window()
     @classmethod
     def tearDownClass(cls):
         """
@@ -19,3 +21,8 @@ class login(unittest.TestCase):
     def test_login(self):
         Login(self.browse).login("1", "18888888888", "123456")
         Login(self.browse).get_windows_img()
+
+
+if __name__ == "__main__":
+    runner = TestRunner('./', '百度测试用例', '测试环境：Chrome')
+    runner.run()
