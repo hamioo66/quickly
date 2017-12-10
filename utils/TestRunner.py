@@ -15,7 +15,7 @@ class TestRunner(object):
     def run(self):
         now = time.strftime("%Y.%m.%d %H_%M_%S")
         fp = open( os.path.dirname(os.path.abspath('.'))+"/report/"+ now +"result.html", 'wb')
-        tests = unittest.defaultTestLoader.discover(self.cases,pattern='test*.py',top_level_dir=None)
+        tests = unittest.defaultTestLoader.discover(self.cases, pattern='test*.py',top_level_dir=None)
         runner = HTMLTestRunner(stream=fp, title=self.title, description=self.des)
         runner.run(tests)
         fp.close()

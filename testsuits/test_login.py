@@ -15,23 +15,25 @@ class login(unittest.TestCase):
         """
         前提准备工作
         """
-        cls.browse =webdriver.Firefox()
-        cls.browse.get('http://123.206.57.62:17000')
-        cls.browse.maximize_window()
+        cls.driver = webdriver.Chrome()
+        cls.driver.get('http://123.206.57.62:17000')
+        cls.driver.maximize_window()
     @classmethod
     def tearDownClass(cls):
         """
         关闭浏览器
         """
-        cls.browse.quit()
-    def test_login(self):
-        Login(self.browse).login("1", "18888888888", "123456")
-        Login(self.browse).get_windows_img()
+        cls.driver.quit()
+    def test_a_login(self):
+        Login(self.driver).login("1", "18888888888", "123456")
+        Login(self.driver).get_windows_img()
+        # Find_menu(self.driver).find_menu(0, u"商品列表")
 
-    def find_menu(self):
-        Find_menu.find_menu()
+
+    def test_b_find_menu(self):
+        Find_menu(self.driver).find_menu(0, u"商品列表")
 
 
 if __name__ == "__main__":
-    runner = TestRunner('./', '百度测试用例', '测试环境：Chrome')
+    runner = TestRunner('./', u'百度测试用例', u'测试环境：Chrome')
     runner.run()

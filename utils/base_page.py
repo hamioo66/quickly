@@ -107,41 +107,6 @@ class BasePage(object):
             raise NameError("Please enter a valid type of targeting elements.")
 
         return element
-    # 定位多个元素
-    """
-        author:hamioo
-        date:2017/12/8
-    """
-    def find_elements(self,selector):
-        elements = ''
-        if '=>' not in selector:
-            return self.driver.find_elements_by_id(selector)
-        selector_by = selector.split('=>')[0]
-        selector_value = selector.split('=>')[1]
-
-        if selector_by == "i" or selector_by == 'id':
-            try:
-                elements = self.driver.find_elements_by_css_selector(selector_value)
-                logger.info("当前元素的个数为%d"  %len(elements))
-            except NoSuchElementException as e:
-                logger.error("NoSuchElementException: %s" % e)
-                self.get_windows_img()
-        elif selector_by == "n" or selector_by == 'name':
-            elements = self.driver.find_elements_by_name(selector_value)
-        elif selector_by == "c" or selector_by == 'class_name':
-            elements = self.driver.find_elements_by_class_name(selector_value)
-        elif selector_by == "l" or selector_by == 'link_text':
-            elements = self.driver.find_elements_by_link_text(selector_value)
-        elif selector_by == "p" or selector_by == 'partial_link_text':
-            elements = self.driver.find_elements_by_partial_link_text(selector_value)
-        elif selector_by == "t" or selector_by == 'tag_name':
-            elements = self.driver.find_elements_by_tag_name(selector_value)
-        elif selector_by == "s" or selector_by == 'selector_selector':
-            elements = self.driver.find_elements_by_css_selector(selector_value)
-        else:
-            raise NameError("请输入有效类型的目标元素")
-
-        return elements
 
     # 输入
     def type(self, selector, text):
@@ -172,7 +137,7 @@ class BasePage(object):
         el = self.find_element(selector)
         try:
             el.click()
-            logger.info("The element \' %s \' was clicked." % el.text)
+            logger.info("The element \' %s \' was clicked." % el)
         except NameError as e:
             logger.error("Failed to click the element with %s" % e)
 
@@ -189,6 +154,58 @@ class BasePage(object):
 
 
  #集鲜丰公共的一些方法
+
+        # 定位多个元素
+
+    """
+        author:hamioo
+        date:2017/12/8
+    """
+    def find_elements(self, selector):
+        elements = ''
+        if '=>' not in selector:
+            return self.driver.find_elements_by_id(selector)
+        selector_by = selector.split('=>')[0]
+        selector_value = selector.split('=>')[1]
+
+        if selector_by == "i" or selector_by == 'id':
+            try:
+                elements = self.driver.find_elements_by_css_selector(selector_value)
+                logger.info("当前元素的个数为%d" % len(elements))
+            except NoSuchElementException as e:
+                logger.error("元素不存在: %s" % e)
+                self.get_windows_img()
+        elif selector_by == "n" or selector_by == 'name':
+            elements = self.driver.find_elements_by_name(selector_value)
+            logger.info("当前元素的个数为%d" % len(elements))
+        elif selector_by == "c" or selector_by == 'class_name':
+            elements = self.driver.find_elements_by_class_name(selector_value)
+            logger.info("当前元素的个数为%d" % len(elements))
+        elif selector_by == "l" or selector_by == 'link_text':
+            elements = self.driver.find_elements_by_link_text(selector_value)
+            logger.info("当前元素的个数为%d" % len(elements))
+        elif selector_by == "p" or selector_by == 'partial_link_text':
+            elements = self.driver.find_elements_by_partial_link_text(selector_value)
+            logger.info("当前元素的个数为%d" % len(elements))
+        elif selector_by == "t" or selector_by == 'tag_name':
+            elements = self.driver.find_elements_by_tag_name(selector_value)
+            logger.info("当前元素的个数为%d" % len(elements))
+        elif selector_by == "s" or selector_by == 'selector_selector':
+            elements = self.driver.find_elements_by_css_selector(selector_value)
+            logger.info("当前元素的个数为%d" % len(elements))
+        else:
+            raise NameError("请输入有效类型的目标元素")
+
+        return elements
+
+    # 元素点击
+    def click_list(self, selector, num):
+        els = self.find_elements(selector)
+        try:
+            els[num].click()
+            logger.info("The element \' %s \' was clicked." % els[num])
+        except NameError as e:
+            logger.error("Failed to click the element with %s" % e)
 
     # 获取表单中所有input并传值
     def value_to_input(self, inputValues=[]):
