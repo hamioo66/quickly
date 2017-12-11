@@ -8,6 +8,7 @@ class Login(BasePage):
     password = "name=>password"
     roleCode = "name=>roleCode"
     loginbtn = "id=>loginBtn"
+    # 登录
     def login(self,value,telphone,password):
         s = Select(self.find_element(self.roleCode))
         s.select_by_value(value)

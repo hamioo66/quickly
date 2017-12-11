@@ -5,7 +5,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import NoSuchElementException
 from utils.logger import Logger
 
-# create a logger instance
+# 创建日志实例
 logger = Logger(logger="BasePage").getlog()
 
 
@@ -78,8 +78,7 @@ class BasePage(object):
         if selector_by == "i" or selector_by == 'id':
             try:
                 element = self.driver.find_element_by_id(selector_value)
-                logger.info("Had find the element %s successful "
-                            "by %s via value: %s " % (element.text, selector_by, selector_value))
+                logger.info("找到元素成功返回的数据是：%s By %s via value: %s " % (element.text, selector_by, selector_value))
             except NoSuchElementException as e:
                 logger.error("NoSuchElementException: %s" % e)
                 self.get_windows_img()  # take screenshot
@@ -96,15 +95,14 @@ class BasePage(object):
         elif selector_by == "x" or selector_by == 'xpath':
             try:
                 element = self.driver.find_element_by_xpath(selector_value)
-                logger.info("Had find the element \' %s \' successful "
-                            "by %s via value: %s " % (element.text, selector_by, selector_value))
+                logger.info("找到元素成功返回的数据是：%s By %s via value: %s " % (element.text, selector_by, selector_value))
             except NoSuchElementException as e:
-                logger.error("NoSuchElementException: %s" % e)
+                logger.error("没有元素异常: %s" % e)
                 self.get_windows_img()
         elif selector_by == "s" or selector_by == 'selector_selector':
             element = self.driver.find_element_by_css_selector(selector_value)
         else:
-            raise NameError("Please enter a valid type of targeting elements.")
+            raise NameError("请输入有效类型的目标元素")
 
         return element
 
@@ -198,14 +196,37 @@ class BasePage(object):
 
         return elements
 
-    # 元素点击
+
     def click_list(self, selector, num):
+        """
+        多元素的定位点击
+        :param selector: 
+        :param num: 
+        :return: 
+        """
         els = self.find_elements(selector)
         try:
             els[num].click()
             logger.info("The element \' %s \' was clicked." % els[num])
         except NameError as e:
             logger.error("Failed to click the element with %s" % e)
+
+    def switch_to_frame(self, selector, num):
+        """
+        切换到对应的iframe
+        :param selector: 
+        :param num: 
+        :return: 
+        """
+        els = self.find_elements(selector)
+        self.driver.switch_to.frame(els[num])
+
+
+    def switch_to_frame_out(self):
+        """
+        回到中iframe中
+        """
+        self.driver.switch_to.default_content()
 
     # 获取表单中所有input并传值
     def value_to_input(self, inputValues=[]):
