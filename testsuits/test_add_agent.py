@@ -7,10 +7,7 @@ from selenium.webdriver.common.keys import Keys
 from utils.logger import Logger
 logger = Logger(logger="BasePage").getlog()
 #参数0、1、2分别对应管理员、批发商代理商
-driver = webdriver.Chrome()
-url = 'http://123.206.57.62:17000/index'
-driver.get(url)
-driver.maximize_window()
+
 def login(num):
     user_file = open('../file/login.txt', 'r')
     values = user_file.readlines()
@@ -38,18 +35,8 @@ def login(num):
         logger.info('当前登录用户是代理商')
     logger.info(u"用户名是:%s" %username)
     logger.info(u"密码是:%s" %password)
-login(0)
-lis=driver.find_elements_by_class_name('link')
-#点击用户管理
-lis[1].click()
-time.sleep(1)
-driver.find_element_by_link_text(u'代理商列表').click()
-mainIframe=driver.find_elements_by_class_name('iframeBox')
-driver.switch_to.frame(mainIframe[-1])
-time.sleep(1)
-driver.find_element_by_css_selector('button.columnBtn.js_add_agent').click()
-mainIframe1=driver.find_elements_by_tag_name('iframe')
-driver.switch_to.frame(mainIframe1[-1])
+
+
 
 def sendValueToInput(inputValues=[]):
     allInputs = driver.find_elements_by_css_selector('li>input')
@@ -95,6 +82,22 @@ def MoreImgFiles(file):  #上传更多图片，只针对第二张
     except:
         print "当前元素不存在"
 if __name__=="__main__":
+    driver = webdriver.Chrome()
+    url = 'http://123.206.57.62:17000/index'
+    driver.get(url)
+    driver.maximize_window()
+    login(0)
+    lis = driver.find_elements_by_class_name('link')
+    # 点击用户管理
+    lis[1].click()
+    time.sleep(1)
+    driver.find_element_by_link_text(u'代理商列表').click()
+    mainIframe = driver.find_elements_by_class_name('iframeBox')
+    driver.switch_to.frame(mainIframe[-1])
+    time.sleep(1)
+    driver.find_element_by_css_selector('button.columnBtn.js_add_agent').click()
+    mainIframe1 = driver.find_elements_by_tag_name('iframe')
+    driver.switch_to.frame(mainIframe1[-1])
     #测试添加代理商
     area=[u'北京市',u'市辖区',u'北京市',u'市辖区',u'东城区',u'景山街道']
     selectArea(area)
