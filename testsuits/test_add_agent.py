@@ -81,7 +81,8 @@ def MoreImgFiles(file):  #上传更多图片，只针对第二张
         more.send_keys(file)
     except:
         print "当前元素不存在"
-if __name__=="__main__":
+
+if __name__ == "__main__":
     driver = webdriver.Chrome()
     url = 'http://123.206.57.62:17000/index'
     driver.get(url)
@@ -95,18 +96,42 @@ if __name__=="__main__":
     mainIframe = driver.find_elements_by_class_name('iframeBox')
     driver.switch_to.frame(mainIframe[-1])
     time.sleep(1)
+    driver.find_element_by_class_name('columnBtn').click()
+    print driver.find_element_by_class_name('columnBtn').text
+    time.sleep(5)
     driver.find_element_by_css_selector('button.columnBtn.js_add_agent').click()
     mainIframe1 = driver.find_elements_by_tag_name('iframe')
     driver.switch_to.frame(mainIframe1[-1])
-    #测试添加代理商
-    area=[u'北京市',u'市辖区',u'北京市',u'市辖区',u'东城区',u'景山街道']
-    selectArea(area)
-    inputValues=[u'测试','15599155289','15599155289',u'测试地址地址']
+
+    inputValues=[u'测试', '15599155289', '15599155289', u'测试地址地址']
     sendValueToInput(inputValues)
+
+    # 测试添加代理商
+    area = [u'北京市', u'市辖区', u'北京市', u'市辖区', u'东城区', u'景山街道']
+    selectArea(area)
+
     FileImg('C:\\Users\\lenovo\\Pictures\\aa.jpg')
-    time.sleep(4)
     MoreImgFiles('C:\\Users\\lenovo\\Pictures\\bb.jpg')
     secondImgFile = driver.find_element_by_id("file3")
     secondImgFile.send_keys('C:\\Users\\lenovo\\Pictures\\cc.jpg')
+
+    li = driver.find_elements_by_css_selector('li>input')
+    # print li[1].text
+    li[1].clear()
+    time.sleep(4)
+    scroll_to = driver.find_element_by_css_selector("input[name='addDetail']")
+    scroll_to.send_keys(Keys.SHIFT, Keys.TAB)
+
+    # selects = driver.find_elements_by_css_selector('button[title="请选择"]')
+    # selects[0].send_keys(Keys.SHIFT, Keys.TAB)
+
+    # scroll_to = driver.find_element_by_css_selector("input[name='addDetail']")
+    # scroll_to.send_keys(Keys.TAB)
+    # time.sleep(4)
+    # driver.find_element_by_class_name('submit').click()
+    # driver.find_element_by_class_name('layui-layer-btn0').click()
+
+    # selectArea(area=[u'贵州省', u'贵阳市'])
+    # driver.quit()
 
 
