@@ -25,14 +25,14 @@ class login(unittest.TestCase):
         关闭浏览器
         """
         cls.driver.quit()
-    def test_a_login(self):
+    def test_a_add_agent(self):
         """测试后台正常登录"""
         Login(self.driver).login("1", "18888888888", "123456")
         Login(self.driver).get_windows_img()
         # Common(self.driver).find_menu(0, u"商品列表")
-    def test_add_agent(self):
         Common(self.driver).find_menu(1, u"代理商列表")
-        # pass
+        
+
 
 if __name__ == "__main__":
     runner = TestRunner('./', u'集鲜丰后台用例测试', u'测试环境：Chrome')

@@ -15,6 +15,9 @@ class Common(BasePage):
     tr = "selector_selector=>tr[role='row']"                           # 获取当前数据有多少行
     th = "selector_selector=>tr[role='row']>th"                        # 获取当前数据有多少列
 
+    frames = "class_name=>iframeBox"
+
+
     def find_menu(self, father_menu_index, child_menu):
         """
         查找菜单
@@ -26,9 +29,11 @@ class Common(BasePage):
         links = self.find_elements(self.link)
         self.click_list(self.link, father_menu_index)
         print links[father_menu_index].text
+        self.sleep(3)
         submenus = self.find_elements(child_menu_text)
         for j in range(0, len(submenus)):
-            self.click_list(child_menu_text,j)
+            self.click_list(child_menu_text, j)
+
 
 
     def merchant(self, iframeNum, account):
@@ -62,6 +67,13 @@ class Common(BasePage):
                 print(u"第%d行的数据是：%s" % (i, table_rows[int(i)].text))
                 print("用户注册成功")
             i = i + 1
+
+    def add_agent(self):
+        self.switch_to_frame(self.frames, -1)
+        self.sleep(2)
+
+
+
 
 
 

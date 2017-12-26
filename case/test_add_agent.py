@@ -107,7 +107,7 @@ if __name__ == "__main__":
     sendValueToInput(inputValues)
 
     # 测试添加代理商
-    area = [u'北京市', u'市辖区', u'北京市', u'市辖区', u'东城区', u'景山街道']
+    area = [u'贵州省', u'贵阳市', u'北京市', u'市辖区', u'东城区', u'景山街道']
     selectArea(area)
 
     FileImg('C:\\Users\\lenovo\\Pictures\\aa.jpg')
@@ -115,21 +115,20 @@ if __name__ == "__main__":
     secondImgFile = driver.find_element_by_id("file3")
     secondImgFile.send_keys('C:\\Users\\lenovo\\Pictures\\cc.jpg')
 
-    li = driver.find_elements_by_css_selector('li>input')
-    # print li[1].text
-    li[1].clear()
-    time.sleep(4)
-    scroll_to = driver.find_element_by_css_selector("input[name='addDetail']")
-    scroll_to.send_keys(Keys.SHIFT, Keys.TAB)
+    # li = driver.find_elements_by_css_selector('li>input')
+    # li[1].clear()
+    # time.sleep(4)
+    # scroll_to = driver.find_element_by_css_selector("input[name='addDetail']")
+    # scroll_to.send_keys(Keys.SHIFT, Keys.TAB)
 
     # selects = driver.find_elements_by_css_selector('button[title="请选择"]')
     # selects[0].send_keys(Keys.SHIFT, Keys.TAB)
 
-    # scroll_to = driver.find_element_by_css_selector("input[name='addDetail']")
-    # scroll_to.send_keys(Keys.TAB)
-    # time.sleep(4)
-    # driver.find_element_by_class_name('submit').click()
-    # driver.find_element_by_class_name('layui-layer-btn0').click()
+    scroll_to = driver.find_element_by_css_selector("input[name='addDetail']")
+    scroll_to.send_keys(Keys.TAB)
+    time.sleep(4)
+    driver.find_element_by_class_name('submit').click()
+    driver.find_element_by_class_name('layui-layer-btn0').click()
 
     # selectArea(area=[u'贵州省', u'贵阳市'])
     # driver.quit()

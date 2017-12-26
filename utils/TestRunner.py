@@ -7,7 +7,7 @@ import unittest
 class TestRunner(object):
     """重写html生成报告"""
 
-    def __init__(self, cases="./" ,title="pyse Test Report",description="Test case execution"):
+    def __init__(self, cases="./" ,title="quikly测试报告",description="用例执行"):
         self.cases = cases
         self.title = title
         self.des = description
